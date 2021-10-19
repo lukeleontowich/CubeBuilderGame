@@ -1,3 +1,13 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Texture.h
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: First version of Texture. See Texture2D.h
+** for current in use version. Other elements within the
+** namespace game are being used, such as; TEXTURE_TYPE,
+** and the name of the texture files
+*****************************************************/
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
@@ -29,15 +39,34 @@ enum TEXTURE_TYPE {
     WOODLAND = 9
 };
 
-static const std::string water_file = "textures/water.jpeg";
+//  https://www.pinterest.ca/pin/407223991276902643/
+static const std::string water_file = "textures/water2.jpeg";
+
+//  Homemade
 static const std::string grass_file = "textures/grasslight2.jpg";
+
+//  https://www.tilingtextures.com/gravel-decorated-exterior-plaster/
 static const std::string desert_file = "textures/sand.jpg";
-static const std::string dirt_file = "textures/dirt.jpeg";
-static const std::string rock_file = "textures/rock.jpeg";
-static const std::string road_file = "textures/road.jpeg";
-static const std::string brick_file = "textures/brick.jpeg";
-static const std::string wood_file = "textures/wood.jpeg";
-static const std::string wall_file = "textures/wall.jpeg";
+
+//  https://www.tilingtextures.com/warm-sandy-plaster/
+static const std::string dirt_file = "textures/dirt.jpg";
+
+//  https://www.tilingtextures.com/rectangular-stone-wall/
+static const std::string rock_file = "textures/rock.jpg";
+
+//  https://www.tilingtextures.com/plastering-with-fine-grained-pebbles/
+static const std::string road_file = "textures/road.jpg";
+
+//  https://www.tilingtextures.com/decorative-orange-brick-wall/
+static const std::string brick_file = "textures/brick.jpg";
+
+//  https://www.tilingtextures.com/exterior-cabin-wainscot/
+static const std::string wood_file = "textures/wood.jpg";
+
+//  https://www.tilingtextures.com/gravel-decorated-exterior-plaster/
+static const std::string wall_file = "textures/wall.jpg";
+
+//  Homemade
 static const std::string woodland_file = "textures/grassdark2.jpg";
 
 enum TEXTURE_ERROR {

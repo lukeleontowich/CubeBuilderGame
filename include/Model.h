@@ -1,3 +1,15 @@
+/*****************************************************
+** Project: Ultimate Mayor
+** File: Model.h
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: This class stores the data for a model
+** This class originates from learnopengl.com and is
+** re-worked so it works for the purpose of this game
+** see https://learnopengl.com/Model-Loading/Model
+** for more information
+*****************************************************/
+
 #ifndef MODEL_H
 #define MODEL_H
 
@@ -10,6 +22,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+
 
 #include <string>
 #include <fstream>

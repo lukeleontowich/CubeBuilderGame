@@ -5,7 +5,7 @@
 ** Date: September 10, 2021
 ** Description: This class should be discontinued and
 ** deleted from the project
-*****************************************************/
+****************************************************/
 
 #ifndef CUBE2_H
 #define CUBE2_H

@@ -1,3 +1,10 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: TempSlabView.h
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Basic slab viewing class
+*****************************************************/
 #ifndef TEMPSLABVIEW_H
 #define TEMPSLABVIEW_H
 

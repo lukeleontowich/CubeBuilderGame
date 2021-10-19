@@ -1,3 +1,12 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Tile2.h
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Contatins information needed to draw a
+** tile. This version does NOT include normals
+*****************************************************/
+
 #ifndef TILE2_H
 #define TILE2_H
 

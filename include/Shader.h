@@ -1,3 +1,13 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Shader.h
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: The Shader class creates and compiles
+** a shader. Must use init() function before using the
+** shader.
+*****************************************************/
+
 #ifndef SHADER_H
 #define SHADER_H
 
@@ -17,17 +27,61 @@
 namespace game {
 
 class Shader {
-public:
-    Shader();
-    ~Shader();
-    unsigned int id() {return _id;}
-    bool init(std::string v_path, std::string f_path);
-    void deleteShader();
-    void use();
 private:
+    //  Shader id
     unsigned int _id;
+
+    /** getCode()
+    ** @param string path
+    ** @return string
+    ** Description: Gets the shader code from a file
+    **/
     std::string getCode(std::string path);
+
+    /** compiled()
+    ** @param unsigned int, const char*
+    ** @return bool
+    ** Description: Checks compile status, returns true if compilation was success
+    **/
     bool compiled(unsigned int shader, const char* msg);
+
+public:
+    /**  Constructor  **/
+    Shader();
+
+    /**  Descructor  **/
+    ~Shader();
+
+    /**
+    ** id()
+    ** @param none
+    ** @return unsigned int
+    ** Description: returns the shader id
+    **/
+    unsigned int id() {return _id;}
+
+    /** init()
+    ** @param string, string,
+    ** @return bool
+    ** Description: Initializes the shader, compiles the vertex and fragment shader
+    ** and links them
+    **/
+    bool init(std::string v_path, std::string f_path);
+
+    /** deleteShader()
+    ** @param none
+    ** @return void
+    ** Description: Deallocates the shader memory
+    **/
+    void deleteShader();
+
+    /** use()
+    ** @param none
+    ** @return void
+    ** Description: Call to use shader
+    **/
+    void use();
+
 };
 }
 #endif // SHADER_H

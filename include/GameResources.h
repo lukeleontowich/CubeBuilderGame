@@ -75,12 +75,12 @@ private:
     //  object map stores all the current models
     static std::map<std::string, game::Model> objects;
 
-    //  Cube info
+    //  Cube info (Cube with normals)
     //  only want to bind the cube info to a vertex array once
     static Cube cube;
     static bool cube_init;
 
-    //  To be discontinued
+    //  Cube2 info (Cube without normals)
     static Cube2 cube2;
     static bool cube2_init;
 
@@ -88,12 +88,12 @@ private:
     static game::Texture2D textures;
     static bool textures_init;
 
-    //  Tile info
+    //  Tile info (with normals)
     //  only want to bind the tile info to a vertex array once
     static Tile tile;
     static bool tile_init;
 
-    //  To be discontinued
+    //  Tile info (without normals)
     static Tile2 tile2;
     static bool tile2_init;
 
@@ -125,7 +125,11 @@ public:
     static Cube getCube();
     static Cube getCubeWithNormals();
 
-    /** To be discontinued  **/
+    /** getCubeWithoutNormals()
+    ** @param none
+    ** @return Cube2
+    ** Description: Returns cube info without normals
+    **/
     static Cube2 getCubeWithoutNormals();
     static Cube2 getCube2();
 
@@ -137,7 +141,11 @@ public:
     static Tile getTile();
     static Tile getTileWithNormals();
 
-    /** To be discontinued  **/
+    /** getTileWithoutNormals()
+    ** @param none
+    ** @return Tile2
+    ** Description: Returns the tile info without normals
+    **/
     static Tile2 getTile2();
     static Tile2 getTileWithoutNormals();
 

@@ -3,7 +3,7 @@
 ** File: GrassSlabView1.h
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
-** Description: **
+** Description:
 ** Implements the drawing method for a GrassSlab
 *****************************************************/
 
