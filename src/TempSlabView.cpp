@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: TempSlabView.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implements TempSlabView.h
+*****************************************************/
+
 #include "TempSlabView.h"
 
 TempSlabView::TempSlabView() {}

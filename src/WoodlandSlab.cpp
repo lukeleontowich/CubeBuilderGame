@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: WoodlandSlab.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of WoodlandSlab.cpp
+*****************************************************/
+
 #include "WoodlandSlab.h"
 
 WoodlandSlab::WoodlandSlab() {

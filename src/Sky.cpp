@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Sky.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of Sky class
+*****************************************************/
+
 #include "Sky.h"
 
 Sky::Sky() {

@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: WoodlandSlabView1.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of WoodlandSlabView1.cpp
+*****************************************************/
+
 #include "WoodlandSlabView1.h"
 
 WoodlandSlabView1::WoodlandSlabView1() {}

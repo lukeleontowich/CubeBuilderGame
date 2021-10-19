@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Shader.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of Shader class
+*****************************************************/
+
 #include "Shader.h"
 
 game::Shader::Shader() {}

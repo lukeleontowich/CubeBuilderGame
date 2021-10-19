@@ -1,5 +1,5 @@
 /*********************************************************
-** Project: Ultimate Mayor
+** Project: Cube Builder Game
 ** File: GameResources.cpp
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
@@ -43,21 +43,29 @@ Cube GameResources::getCube() {
 }
 
 /** getCubeWithNormals()
-** I had two different cubes at one point so this one returns a cube with normals
+** returns a cube with normals
 ** We need normals for lighting calculations
 **/
 Cube GameResources::getCubeWithNormals() {
     return getCube();
 }
 
-/** Discontinue  **/
+/** getCubeWithoutNormals()
+** Returns a cube without normals
+** This cube won't be affected by lighting
+**/
 Cube2 GameResources::getCubeWithoutNormals() {
     return getCube2();
 }
-/** Discontinue  **/
+/** Cube2 (Cube without normal) initialization **/
 Cube2 GameResources::cube2;
 bool GameResources::cube2_init = false;
-/** Discontinue  **/
+
+/** getCube2()
+** If cube2 is not initialize then allocate the vertex array and vertex buffers
+** Only want to allocate the memory once so once cube is initialized just return
+** the Cube2
+**/
 Cube2 GameResources::getCube2() {
     if (!cube2_init) {
 
@@ -169,11 +177,10 @@ Tile GameResources::getTileWithNormals() {
     return getTile();
 }
 
-/** Discontinue  **/
+/** Tiles without Normals  **/
 Tile2 GameResources::tile2;
 bool GameResources::tile2_init = false;
 
-/** Discontinue  **/
 Tile2 GameResources::getTile2() {
     if (!tile2_init) {
         glGenVertexArrays(1, &tile2.vao);
@@ -199,7 +206,7 @@ Tile2 GameResources::getTile2() {
     return tile2;
 }
 
-/** Discontinue  **/
+/** getTileWithoutNormals()  **/
 Tile2 GameResources::getTileWithoutNormals() {
     return getTile2();
 }

@@ -1,11 +1,12 @@
 #include "Slab.h"
 /**********************************************************
-** Project: Ultimate Mayor
+** Project: Cube Builder Game
 ** File: Slab.cpp
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
 ** Description: Implementation of Slab.h
 ***********************************************************/
+
 
 /** Constructor  **/
 Slab::Slab() {}

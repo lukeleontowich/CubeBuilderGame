@@ -1,3 +1,12 @@
+
+/*****************************************************
+** Project: Cube Builder Game
+** File: SlabViewBase1.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of SlabViewBase1.h
+*****************************************************/
+
 #include "SlabViewBase1.h"
 #include "SkyController.h"
 

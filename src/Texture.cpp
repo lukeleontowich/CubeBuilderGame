@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Texture.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of Version 1 Texture.h
+*****************************************************/
+
 #include "Texture.h"
 
 game::Texture::Texture(unsigned int num_textures) {

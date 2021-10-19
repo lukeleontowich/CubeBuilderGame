@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Texture2D.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of Texture2D.h
+*****************************************************/
+
 #include "Texture2D.h"
 
 game::Texture2D::Texture2D() {}
@@ -65,6 +73,7 @@ bool game::Texture2D::addTexture(unsigned int index, std::string file_path) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     int width, height, nrchannels;
+
     auto data = stbi_load(file_path.c_str(), &width, &height, &nrchannels, 0);
     if (data) {
         if (type == 1) {

@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: WaterSlab.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of WaterSlab.h
+*****************************************************/
+
 #include "WaterSlab.h"
 #include "GrassSlabView1.h"
 WaterSlab::WaterSlab() {

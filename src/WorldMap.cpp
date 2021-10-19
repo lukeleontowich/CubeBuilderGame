@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: WorldMap.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of WorldMap.cpp
+*****************************************************/
+
 #include "WorldMap.h"
 
 WorldMap::WorldMap(const unsigned& map_side_length) {

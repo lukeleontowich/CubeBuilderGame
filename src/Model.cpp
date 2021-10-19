@@ -1,3 +1,14 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: Model.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implementation of Model.h
+** See https://learnopengl.com/Model-Loading/Model
+** for more information
+*****************************************************/
+
+
 #include "Model.h"
 
 game::Model::Model() {}

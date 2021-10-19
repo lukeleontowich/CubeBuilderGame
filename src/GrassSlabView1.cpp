@@ -1,5 +1,5 @@
 /*****************************************************
-** Project: Ultimate Mayor
+** Project: Cube Builder Game
 ** File: GrassSlabView1.cpp
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
