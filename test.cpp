@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: test.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Testing
+*****************************************************/
+
 #include <gtest/gtest.h>
 
 #include <cmath>

@@ -1,5 +1,14 @@
 /*****************************************************
-** Project: Ultimate Mayor
+** Project: Cube Builder Game
+** File: main.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Main file for game
+*****************************************************/
+
+//  Template
+/*****************************************************
+** Project: Cube Builder Game
 ** File:
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
