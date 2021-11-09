@@ -6,15 +6,6 @@
 ** Description: Main file for game
 *****************************************************/
 
-//  Template
-/*****************************************************
-** Project: Cube Builder Game
-** File:
-** Author: Luke Leontowich
-** Date: September 10, 2021
-** Description:
-*****************************************************/
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
@@ -22,8 +13,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-
 
 #include <iostream>
 #include <cmath>
@@ -84,6 +73,7 @@ float delta_time = 0.0f;
 float last_frame = 0.0f;
 
 game::TEXTURE_TYPE current_texture = game::BRICK;
+bool hide_cube_to_place = false;
 
 
 
@@ -103,7 +93,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     //  Create Window
-    auto window = glfwCreateWindow(WIDTH, HEIGHT, "Ultimate Mayor", NULL, NULL);
+    auto window = glfwCreateWindow(WIDTH, HEIGHT, "Cube Builder Game", NULL, NULL);
     if (window == NULL) {
         std::cout << "Error creating window\n";
         glfwTerminate();
@@ -168,10 +158,10 @@ int main() {
 
 
     //  Configure game map
-    game_map = new WorldMap(6);
+    game_map = new WorldMap(5);
 
     Slab* slab1 = new GrassSlab;
-    slab1->addElement(game::ROCK, glm::vec3(0.0, 0.0, 0.0));
+    //slab1->addElement(game::ROCK, glm::vec3(0.0, 0.0, 0.0));
     game_map->addSlab(slab1);
     game_map->addSlab(new GrassSlab);
     game_map->addSlab(new WoodlandSlab);
@@ -203,6 +193,7 @@ int main() {
 
 
     //  Sun
+    sun.setTheta(90.0f);
 
     //  Sky
     Sky sky;
@@ -246,25 +237,25 @@ int main() {
         /***  Draw World Map  ***/
         game_map->draw(camera.pos);
 
-
-        //  Draw Cube to place
-        auto model = glm::mat4(1.0f);
-        auto shift = game_map->getMousePointerLocation(camera, ADD);
-        auto shift_prime = glm::vec3(int(shift.x)+0.5, int(shift.y), int(shift.z)+0.5);
-        model = glm::translate(model, shift_prime);
-        auto shader = GameResources::loadShader("shaders/s1.vs", "shaders/s1.fs", game::CUBE_SHADER_NO_NORMALS);
-        auto cube = GameResources::getCubeWithoutNormals();
-        shader.use();
-        GameResources::bind(current_texture);
-        glUniformMatrix4fv(glGetUniformLocation(shader.id(), "view"),
-                           1, GL_FALSE, glm::value_ptr(GameResources::getViewMatrix()));
-        glUniformMatrix4fv(glGetUniformLocation(shader.id(), "projection"),
-                           1, GL_FALSE, glm::value_ptr(GameResources::getProjectionMatrix()));
-        glUniformMatrix4fv(glGetUniformLocation(shader.id(), "model"),
-                           1, GL_FALSE, glm::value_ptr(model));
-        glBindVertexArray(cube.vao);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
+        if (!hide_cube_to_place) {
+            //  Draw Cube to place
+            auto model = glm::mat4(1.0f);
+            auto shift = game_map->getMousePointerLocation(camera, ADD);
+            auto shift_prime = glm::vec3(int(shift.x)+0.5, int(shift.y), int(shift.z)+0.5);
+            model = glm::translate(model, shift_prime);
+            auto shader = GameResources::loadShader("shaders/s1.vs", "shaders/s1.fs", game::CUBE_SHADER_NO_NORMALS);
+            auto cube = GameResources::getCubeWithoutNormals();
+            shader.use();
+            GameResources::bind(current_texture);
+            glUniformMatrix4fv(glGetUniformLocation(shader.id(), "view"),
+                               1, GL_FALSE, glm::value_ptr(GameResources::getViewMatrix()));
+            glUniformMatrix4fv(glGetUniformLocation(shader.id(), "projection"),
+                               1, GL_FALSE, glm::value_ptr(GameResources::getProjectionMatrix()));
+            glUniformMatrix4fv(glGetUniformLocation(shader.id(), "model"),
+                               1, GL_FALSE, glm::value_ptr(model));
+            glBindVertexArray(cube.vao);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
 
 
@@ -349,7 +340,7 @@ void input(GLFWwindow* window) {
     glm::vec3 direction = glm::vec3(camera.dir.x, 0.0f, camera.dir.z);
     glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
 
-    static float speed = 0.25 * delta_time;
+    static float speed = 0.1 * delta_time;
 
     glm::vec3 output_vector = glm::vec3(0.0, 0.0, 0.0);
 
@@ -416,6 +407,17 @@ void input(GLFWwindow* window) {
         r_pressed = false;
     }
 
+    static bool zero_pressed = false;
+    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
+        if (!zero_pressed) {
+            zero_pressed = true;
+            if (hide_cube_to_place) hide_cube_to_place = false;
+            else hide_cube_to_place = true;
+        }
+    }
+    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_RELEASE) {
+        if (zero_pressed) zero_pressed = false;
+    }
 
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
         current_texture = game::WATER;
@@ -444,13 +446,7 @@ void input(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS) {
         current_texture = game::WALL;
     }
-    static bool zero_pressed = false;
-    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS && !zero_pressed) {
-        block_in_hand = true;
-    }
-    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_RELEASE && zero_pressed) {
-        block_in_hand = false;
-    }
+
 
     float offset = 0.005;
     if (glfwGetKey(window, GLFW_KEY_R) && !glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
