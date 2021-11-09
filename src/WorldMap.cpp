@@ -320,7 +320,7 @@ int WorldMap::draw(glm::vec3 pos) {
     //  Draw Top left
     auto index = this->getSlabIndex(world_map_x - 1, world_map_z - 1);
     if (index != -1) {
-        world_map[index]->draw(world_map_x - 1, world_map_z - 1, 1);
+        world_map[index]->draw(world_map_x - 1, world_map_z - 1);
     }
 
     //  Draw Top center
