@@ -195,13 +195,14 @@ void WorldMap::convertToLocalSlabCoordintates(glm::vec3 pos,
 }
 
 //  ** Note that the function will return (-1, -1, -1) if the location is out of scope
-glm::vec3 WorldMap::getMousePointerLocation(const Camera& camera, MODE mode) {
+glm::vec3 WorldMap::getMousePointerLocation(Camera camera, MODE mode) {
 
     //  First we need to get the point on the ground that the mouse is looking at
     //  To do this lets get the current slab that we are in
     //  convert to world_map location
-    int world_map_x = int(camera.pos.x) / SLAB_SIZE;
-    int world_map_z = int(camera.pos.z) / SLAB_SIZE;
+
+    int world_map_x = int(camera.pos().x) / SLAB_SIZE;
+    int world_map_z = int(camera.pos().z) / SLAB_SIZE;
 
         //  get slab index
     auto index = getSlabIndex(world_map_x, world_map_z);
@@ -216,14 +217,14 @@ glm::vec3 WorldMap::getMousePointerLocation(const Camera& camera, MODE mode) {
     //  We will need two points p1 and p2 to form the equation of a line
     //  p1 is given by camera.pos
     //  p2 will be (x2, 0, y2) since we are looking at the bottom of the map
-    glm::vec3 p1 = camera.pos;
+    glm::vec3 p1 = camera.pos();
     glm::vec3 p2;
 
 
     //  We need to check if we are looking up or down
     //  The y2 location will either be the ground or the SLAB_MAX_HEIGHT
     float y;
-    if (camera.pitch < 0) y = current_slab->height();
+    if (camera.pitch() < 0) y = current_slab->height();
     else y = SLAB_MAX_HEIGHT;
 
 
@@ -232,7 +233,7 @@ glm::vec3 WorldMap::getMousePointerLocation(const Camera& camera, MODE mode) {
     //  Form a right triangle from (x1, camera.pos.y, x1) to (x2, y, z2)
     //  We have the angle (pitch) and the length of adj side (camera.pos y - y) we want to find the length of opp side
     //  tan(theta) = opp / adj ==>> opp = tan(theta) * adj
-    float length = abs((camera.pos.y - y) / tan(glm::radians(camera.pitch)));
+    float length = abs((camera.pos().y - y) / tan(glm::radians(camera.pitch())));
     /*
     std::cout << "tan(pitch): " << tan(glm::radians(camera.pitch)) << "\n";
     std::cout << "length: " << length << "\n";
@@ -242,9 +243,9 @@ glm::vec3 WorldMap::getMousePointerLocation(const Camera& camera, MODE mode) {
     //  We are now have the length of the vector that sits on the xz plane
     //  The direction is simply given by camera.yaw
     //  To calculate x2
-    p2.x = p1.x + cos(glm::radians(camera.yaw)) * length;
+    p2.x = p1.x + cos(glm::radians(camera.yaw())) * length;
     //  To calculate z2
-    p2.z = p1.z + sin(glm::radians(camera.yaw)) * length;
+    p2.z = p1.z + sin(glm::radians(camera.yaw())) * length;
     //  As stated about y2 will be ground of the slab
     p2.y = y;
 /*

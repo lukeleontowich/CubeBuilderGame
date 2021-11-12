@@ -302,6 +302,7 @@ game::Model GameResources::loadModel(const std::string& filename, const std::str
 
 
 
+
 /**  destroy()  **/
 void GameResources::destroy() {
     //  If cube was initialized then delete the allocated memory
