@@ -41,11 +41,9 @@
 
 Camera camera;
 
-
 //  States
 bool paused = false;
 bool block_in_hand = false;
-
 
 //  Map
 WorldMap* game_map = nullptr;
@@ -69,9 +67,6 @@ float last_frame = 0.0f;
 
 game::TEXTURE_TYPE current_texture = game::BRICK;
 bool hide_cube_to_place = false;
-
-
-
 
 
 Sun sun(new SunViewBasic, (cos(glm::radians(45.0f)) * VIEW_DISTANCE) / 2.0);
@@ -112,12 +107,6 @@ int main() {
     glEnable(GL_DEPTH_TEST);
     /***   End Intitializing  ***/
 
-
-    game::Shader tileshader;
-    tileshader.init("shaders/tile.vs", "shaders/tile.fs");
-
-
-
     //  CROSSHAIRS
     CrossHairs crosshairs;
 
@@ -142,24 +131,8 @@ int main() {
     game_map->addSlab(new GrassSlab);
     game_map->fillRestOfMap();
 
-    game::Shader shader = GameResources::loadShader("shaders/s1.vs", "shaders/s1.fs", "basic");
-    auto cube = GameResources::getCube2();
-    GameResources::bind(game::WATER);
-
-    auto tile = GameResources::getTile();
-
-    auto shader2 = GameResources::loadShader("shaders/s1.vs", "shaders/s1.fs", "noname");
-
-
-
     //  Set the initial position
     camera.setPos(glm::vec3(0.0f, 4.0f, 5.0f));
-
-    //  cube with normals
-    auto new_cube_shader = GameResources::loadShader("shaders/cube.vs", "shaders/cube.fs", "cube");
-    auto new_cube = GameResources::getCube();
-
-
 
     //  Sun
     sun.setTheta(90.0f);
@@ -195,12 +168,10 @@ int main() {
                                                             0.1f, VIEW_DISTANCE));
 
         //  Set View Matrix
-        // GameResources::setViewMatrix(glm::lookAt(camera.pos, camera.pos + camera.dir, camera.up));
         GameResources::setViewMatrix(glm::lookAt(camera.pos(), camera.pos() + camera.dir(), camera.up()));
 
 
         //  Draw World Map
-        //  game_map->draw(camera.pos);
         game_map->draw(camera.pos());
 
         if (!hide_cube_to_place) {
@@ -229,7 +200,6 @@ int main() {
 
         //  Update and Draw Sky
         skycontrol.update(GameResources::getLightAngle());
-        //skycontrol.draw(cosview_distance, camera.pos);
         skycontrol.draw(cosview_distance, camera.pos());
 
         //  Draw cross hairs
