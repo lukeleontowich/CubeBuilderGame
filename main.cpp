@@ -37,14 +37,9 @@
 #include "SunViewBasic.h"
 #include "SkyController.h"
 #include "WoodlandSlab.h"
-
+#include "CrossHairs.h"
 
 Camera camera;
-
-//  SKY COLORS
-glm::vec4 maincolor(0.3f, 0.7f, 1.0f, 1.0f);
-glm::vec4 color_offset = glm::normalize(maincolor);
-glm::vec4 sunsetcolor(0.0f, 0.0f, 0.0f, 1.0f);
 
 
 //  States
@@ -124,34 +119,7 @@ int main() {
 
 
     //  CROSSHAIRS
-    float line_vertices[] = {
-        -0.05f, 0.0f,
-        0.05f, 0.0f,
-        0.0f, -0.05f,
-        0.0f, 0.05f
-    };
-    unsigned vao_line, vbo_line;
-    glGenVertexArrays(1, &vao_line);
-    glGenBuffers(1, &vbo_line);
-
-    glBindVertexArray(vao_line);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_line);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(line_vertices), line_vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    game::Shader line_shader;
-    line_shader.init("shaders/line.vs", "shaders/line.fs");
-    glUseProgram(line_shader.id());
-    glUniform4f(glGetUniformLocation(line_shader.id(), "color"), 0.5f, 0.9f, 0.5f, 1.0f);
-
-
-
-    //  Reset the camera to the center of slab_middler_center
-    camera.pos = glm::vec3(SLAB_SIZE + SLAB_SIZE / 2.0, 2.5f, SLAB_SIZE + SLAB_SIZE / 2.0);
-
+    CrossHairs crosshairs;
 
     //  Disable mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -184,7 +152,8 @@ int main() {
 
 
 
-    camera.pos = glm::vec3(0.0f, 4.0f, 5.0f);
+    //  Set the initial position
+    camera.setPos(glm::vec3(0.0f, 4.0f, 5.0f));
 
     //  cube with normals
     auto new_cube_shader = GameResources::loadShader("shaders/cube.vs", "shaders/cube.fs", "cube");
@@ -204,7 +173,6 @@ int main() {
 
     float cosview_distance = cos(glm::radians(45.0f)) * VIEW_DISTANCE;
 
-
     SkyController skycontrol(glm::vec4(0.3, 0.7, 1.0, 1.0),
                          glm::vec4(0.05, 0.05, 0.05, 1.0),
                          glm::vec4(1.0, 0.7, 0.7, 1.0),
@@ -215,27 +183,25 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
 
         //  Set background color
-        //glClearColor(maincolor.x, maincolor.y, maincolor.z, maincolor.w);
         glClearColor(0.0, 1.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //  Update camera
-        camera.dir.x = cos(glm::radians(camera.yaw)) *
-                       cos(glm::radians(camera.pitch));
-        camera.dir.y = sin(glm::radians(camera.pitch));
-        camera.dir.z = sin(glm::radians(camera.yaw)) *
-                       cos(glm::radians(camera.pitch));
-        camera.dir = glm::normalize(camera.dir);
+        camera.update();
 
+        //  Set Projection Matrix
         GameResources::setProjectionMatrix(glm::perspective(glm::radians(45.0f),
                                                             float(WIDTH) / float(HEIGHT),
                                                             0.1f, VIEW_DISTANCE));
 
         //  Set View Matrix
-        //view = glm::lookAt(camera.pos, camera.pos + camera.dir, camera.up);
-        GameResources::setViewMatrix(glm::lookAt(camera.pos, camera.pos + camera.dir, camera.up));
-        /***  Draw World Map  ***/
-        game_map->draw(camera.pos);
+        // GameResources::setViewMatrix(glm::lookAt(camera.pos, camera.pos + camera.dir, camera.up));
+        GameResources::setViewMatrix(glm::lookAt(camera.pos(), camera.pos() + camera.dir(), camera.up()));
+
+
+        //  Draw World Map
+        //  game_map->draw(camera.pos);
+        game_map->draw(camera.pos());
 
         if (!hide_cube_to_place) {
             //  Draw Cube to place
@@ -257,25 +223,17 @@ int main() {
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-
-
-
         //  Draw sun
         sun.draw();
 
 
-        //  Draw Sky
+        //  Update and Draw Sky
         skycontrol.update(GameResources::getLightAngle());
-        skycontrol.draw(cosview_distance, camera.pos);
-
+        //skycontrol.draw(cosview_distance, camera.pos);
+        skycontrol.draw(cosview_distance, camera.pos());
 
         //  Draw cross hairs
-        glUseProgram(line_shader.id());
-        glBindVertexArray(vao_line);
-        glLineWidth(2.0f);
-        glDrawArrays(GL_LINES, 0, 4);
-
-
+        crosshairs.draw();
 
         //  Swap buffers and poll events
         glfwSwapBuffers(window);
@@ -284,7 +242,7 @@ int main() {
         glfwPollEvents();
     }
 
-
+    //  Clean up resources
     if (game_map != nullptr) delete game_map;
 
     GameResources::destroy();
@@ -315,33 +273,22 @@ void input(GLFWwindow* window) {
     last_frame = current_frame;
 
     float sun_speed = 3.0;
-    sun.update(sun_speed* delta_time, camera.pos);
+
+    //  Update the sun
+    sun.update(sun_speed* delta_time, camera.pos());
     GameResources::setLightAngle(sun.theta());
     GameResources::setLightPos(sun.getPos());
-    GameResources::setPlayerPos(camera.pos);
+    GameResources::setPlayerPos(camera.pos());
 
 
-
-
-    float off = 0.05 * delta_time;
-    maincolor.x -= color_offset.x *off;
-    maincolor.y -= color_offset.y *off;
-    maincolor.z -= color_offset.z * off;
-    if (maincolor.x < 0.0) maincolor.x = 0.0;
-    if (maincolor.x > 1.0) maincolor.x = 1.0;
-    if (maincolor.y < 0.0) maincolor.y = 0.0;
-    if (maincolor.y > 1.0) maincolor.y = 1.0;
-    if (maincolor.z < 0.0) maincolor.z = 0.0;
-    if (maincolor.z > 1.0) maincolor.z = 1.0;
-
-
-
-
-    glm::vec3 direction = glm::vec3(camera.dir.x, 0.0f, camera.dir.z);
+    //  Get the up and direction vectors
+    glm::vec3 direction = glm::vec3(camera.dir().x, 0.0f, camera.dir().z);
     glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
 
+    //  Camera speed
     static float speed = 0.1 * delta_time;
 
+    //  The output_vector is the amount that the camera will move
     glm::vec3 output_vector = glm::vec3(0.0, 0.0, 0.0);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
@@ -362,7 +309,9 @@ void input(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         output_vector -= glm::vec3(0.0f, speed, 0.0f);
     }
-    camera.pos += output_vector;
+
+    //  Update the camera position
+    camera.updatePos(output_vector);
 
     static bool p_pressed = false;
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS && !p_pressed) {
@@ -379,8 +328,9 @@ void input(GLFWwindow* window) {
         p_pressed = false;
     }
 
-    if (game_map->collision(camera.pos)) {
-        camera.pos -= output_vector;
+    //  If collision change camera back to previous position
+    if (game_map->collision(camera.pos())) {
+        camera.updatePos(-output_vector);
     }
 
     //  place block
@@ -388,7 +338,7 @@ void input(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && !f_pressed) {
         auto mouse_ptr = game_map->getMousePointerLocation(camera, ADD);
         if (mouse_ptr.x - -1.0 > 0.0001 && mouse_ptr.y - -1.0 > 0.0001 && mouse_ptr.z - -1.0 > 0.0001) {
-            game_map->addCube(current_texture, camera.pos, mouse_ptr);
+            game_map->addCube(current_texture, camera.pos(), mouse_ptr);
         }
         f_pressed = true;
     }
@@ -446,44 +396,6 @@ void input(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS) {
         current_texture = game::WALL;
     }
-
-
-    float offset = 0.005;
-    if (glfwGetKey(window, GLFW_KEY_R) && !glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
-        maincolor.x += offset;
-        if (maincolor.x > 1.0) maincolor.x = 1.0;
-    }
-    if (glfwGetKey(window, GLFW_KEY_R) && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
-        maincolor.x -= offset;
-        if (maincolor.x < 0.0) maincolor.x = 0.0;
-    }
-
-    if (glfwGetKey(window, GLFW_KEY_G) && !glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
-        maincolor.y += offset;
-        if (maincolor.y > 1.0) maincolor.y = 1.0;
-    }
-    if (glfwGetKey(window, GLFW_KEY_G) && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
-        maincolor.y -= offset;
-        if (maincolor.y < 0.0) maincolor.y = 0.0;
-    }
-
-    if (glfwGetKey(window, GLFW_KEY_B) && !glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
-        maincolor.z += offset;
-        if (maincolor.z > 1.0) maincolor.z = 1.0;
-    }
-    if (glfwGetKey(window, GLFW_KEY_B) && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
-        maincolor.z -= offset;
-        if (maincolor.z < 0.0) maincolor.z = 0.0;
-    }
-
-
-    //  temp stuff
-    if (glfwGetKey(window, GLFW_KEY_UP)) {
-        sun.update(0.05, camera.pos);
-    }
-    if (glfwGetKey(window, GLFW_KEY_DOWN)) {
-        sun.update(-0.05, camera.pos);
-    }
 }
 
 /******************************************************************
@@ -494,15 +406,15 @@ void mouse(GLFWwindow* window, double xpos, double ypos) {
     static float last_y = float (HEIGHT) / 2.0;
     float sensitivity = 0.15f;
 
-    camera.yaw += (xpos - last_x) * sensitivity;
-    camera.pitch += (last_y - ypos) * sensitivity;
+    camera.updateYaw((xpos - last_x) * sensitivity);
+    camera.updatePitch((last_y - ypos) * sensitivity);
 
 
-    if (camera.pitch > 89.0) {
-        camera.pitch = 89.0;
+    if (camera.pitch() > 89.0) {
+        camera.setPitch(89.0);
     }
-    if (camera.pitch < -89.0) {
-        camera.pitch = -89.0;
+    if (camera.pitch() < -89.0) {
+        camera.setPitch(-89.0);
     }
 
     last_x = xpos;
