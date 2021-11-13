@@ -9,6 +9,10 @@
 
 #include "GameResources.h"
 
+/** WIDTH and HIEGHT  **/
+unsigned int GameResources::WIDTH = 900;
+unsigned int GameResources::HEIGHT = 660;
+
 /**  Cube initialization **/
 Cube GameResources::cube;
 bool GameResources::cube_init = false;

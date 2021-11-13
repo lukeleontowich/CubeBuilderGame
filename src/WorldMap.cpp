@@ -321,55 +321,55 @@ int WorldMap::draw(glm::vec3 pos) {
     //  Draw Top left
     auto index = this->getSlabIndex(world_map_x - 1, world_map_z - 1);
     if (index != -1) {
-        world_map[index]->draw(world_map_x - 1, world_map_z - 1);
+        world_map[index]->draw(world_map_x - 1, world_map_z - 1, true);
     }
 
     //  Draw Top center
     index = this->getSlabIndex(world_map_x, world_map_z - 1);
     if (index != -1) {
-        world_map[index]->draw(world_map_x, world_map_z - 1);
+        world_map[index]->draw(world_map_x, world_map_z - 1, true);
     }
 
     //  Draw Top right
     index = this->getSlabIndex(world_map_x + 1, world_map_z - 1);
     if (index != -1) {
-        world_map[index]->draw(world_map_x + 1, world_map_z - 1);
+        world_map[index]->draw(world_map_x + 1, world_map_z - 1, true);
     }
 
     //  Draw Middle Left
     index = this->getSlabIndex(world_map_x - 1, world_map_z);
     if (index != -1) {
-        world_map[index]->draw(world_map_x - 1, world_map_z);
+        world_map[index]->draw(world_map_x - 1, world_map_z, true);
     }
 
     /**  Draw Middle Center  **/
     index = this->getSlabIndex(world_map_x, world_map_z);
     if (index != -1) {
-        world_map[index]->draw(world_map_x, world_map_z, false);
+        world_map[index]->draw(world_map_x, world_map_z, true);
     }
 
     //  Draw Middle Right
     index = this->getSlabIndex(world_map_x + 1, world_map_z);
     if (index != -1) {
-        world_map[index]->draw(world_map_x + 1, world_map_z);
+        world_map[index]->draw(world_map_x + 1, world_map_z, true);
     }
 
     //  Draw Bottom left
     index = this->getSlabIndex(world_map_x - 1, world_map_z + 1);
     if (index != -1) {
-        world_map[index]->draw(world_map_x - 1, world_map_z + 1);
+        world_map[index]->draw(world_map_x - 1, world_map_z + 1, true);
     }
 
     //  Draw Bottom center
     index = this->getSlabIndex(world_map_x, world_map_z + 1);
     if (index != -1) {
-        world_map[index]->draw(world_map_x, world_map_z + 1);
+        world_map[index]->draw(world_map_x, world_map_z + 1, true);
     }
 
     //  Draw bottom right
     index = this->getSlabIndex(world_map_x + 1, world_map_z + 1);
     if (index != -1) {
-        world_map[index]->draw(world_map_x + 1, world_map_z + 1);
+        world_map[index]->draw(world_map_x + 1, world_map_z + 1, true);
     }
 
     return 1;

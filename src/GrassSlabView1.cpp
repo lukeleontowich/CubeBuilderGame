@@ -15,7 +15,7 @@ GrassSlabView1::GrassSlabView1() {
     srand(time(NULL));
 
     //  Default grass density
-    grass_density = 5;
+    grass_density = 2;
 
     //  initialize the grass array
     initGrassArray();

@@ -1,3 +1,11 @@
+/*****************************************************
+** Project: Cube Builder Game
+** File: CrossHairs.cpp
+** Author: Luke Leontowich
+** Date: November 12, 2021
+** Description: Data needed to draw crosshairs
+*****************************************************/
+
 #include "CrossHairs.h"
 
 CrossHairs::CrossHairs() {
