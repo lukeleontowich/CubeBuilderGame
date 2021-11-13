@@ -1,5 +1,5 @@
 /*********************************************************
-** Project: Ultimate Mayor
+** Project: CubeBuilderGame
 ** File: GameResources.h
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
@@ -41,6 +41,7 @@
 #include "Tile2.h"
 #include "Sun.h"
 #include "SunViewBasic.h"
+#include "Camera.h"
 
 #include <string>
 
@@ -68,6 +69,7 @@ namespace game {
 class GameResources {
 private:
     GameResources () {}
+
 
     //  shader map stores all the current shaders
     static std::map<std::string, game::Shader> shaders;
@@ -109,7 +111,12 @@ private:
     static glm::mat4 view;
     static glm::mat4 projection;
 
+
 public:
+    //  WIDTH and HEIGHT of window
+    static unsigned int WIDTH;
+    static unsigned int HEIGHT;
+
     /** bind()
     ** @param unsigned int index: index of the texture array to be bound by glBindTexture
     ** @return bool: returns true if binded correctly, false other wise.
@@ -186,6 +193,7 @@ public:
     static void setProjectionMatrix(glm::mat4 projection);
     static glm::mat4 getViewMatrix();
     static glm::mat4 getProjectionMatrix();
+
 
     /** destroy()
     ** @param none

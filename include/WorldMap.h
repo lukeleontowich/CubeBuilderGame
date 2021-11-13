@@ -140,7 +140,7 @@ public:
     ** @return glm::vec3
     ** Description: Get the block that the mouse pointer is looking at
     **/
-    glm::vec3 getMousePointerLocation(const Camera& camera, MODE mode);
+    glm::vec3 getMousePointerLocation(Camera camera, MODE mode);
 
     //  Used for testing
     std::vector<Slab*>* getWorldMap() {return &world_map;}

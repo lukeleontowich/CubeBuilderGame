@@ -24,8 +24,7 @@
 
 class Sky {
 private:
-    //  initialization
-    void init();
+
 
     //  states
     bool sunrise_state = false;
@@ -145,6 +144,9 @@ public:
     ** Description: Deallocates the buffers and vertex arrays
     **/
     void destroy();
+
+    //  initialization
+    void init();
 
     /** vao()
     ** @param none
