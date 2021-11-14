@@ -10,7 +10,7 @@
 #define GRASSSLAB_H
 
 #include "Slab.h"
-#include "TempSlabView.h"
+
 #include "GrassSlabView1.h"
 
 class GrassSlab : public Slab {
