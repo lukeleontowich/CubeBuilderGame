@@ -1,3 +1,11 @@
+/**********************************************
+** Project: Cube Builder Game
+** File: Camera.cpp
+** Author: Luke Leontowich
+** Date: September 10, 2021
+** Description: Implements Camera class
+**********************************************/
+
 #include "Camera.h"
 
 Camera::Camera() {}
