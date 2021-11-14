@@ -45,15 +45,16 @@
 			<Add library="../../../../../../../usr/lib/x86_64-linux-gnu/libassimp.so.5" />
 		</Linker>
 		<Unit filename="include/Camera.h" />
-		<Unit filename="include/CitySlabDecorator.h" />
-		<Unit filename="include/Controller.h" />
 		<Unit filename="include/CrossHairs.h" />
 		<Unit filename="include/Cube.h" />
 		<Unit filename="include/Cube2.h" />
+		<Unit filename="include/CubeBuilderGame.h" />
 		<Unit filename="include/DesertSlab.h" />
+		<Unit filename="include/GameController.h" />
 		<Unit filename="include/GameResources.h" />
 		<Unit filename="include/GrassSlab.h" />
 		<Unit filename="include/GrassSlabView1.h" />
+		<Unit filename="include/Hand.h" />
 		<Unit filename="include/Mesh.h" />
 		<Unit filename="include/Model.h" />
 		<Unit filename="include/Shader.h" />
@@ -65,7 +66,6 @@
 		<Unit filename="include/Sun.h" />
 		<Unit filename="include/SunView.h" />
 		<Unit filename="include/SunViewBasic.h" />
-		<Unit filename="include/TempSlabView.h" />
 		<Unit filename="include/Texture.h" />
 		<Unit filename="include/Texture2D.h" />
 		<Unit filename="include/Tile.h" />
@@ -74,6 +74,7 @@
 		<Unit filename="include/WoodlandSlab.h" />
 		<Unit filename="include/WoodlandSlabView1.h" />
 		<Unit filename="include/WorldMap.h" />
+		<Unit filename="include/WorldMapGenerator.h" />
 		<Unit filename="include/stb_image.h" />
 		<Unit filename="main.cpp">
 			<Option target="Release" />
@@ -97,15 +98,16 @@
 			<Option virtualFolder="shaders/" />
 		</Unit>
 		<Unit filename="src/Camera.cpp" />
-		<Unit filename="src/CitySlabDecorator.cpp" />
-		<Unit filename="src/Controller.cpp" />
 		<Unit filename="src/CrossHairs.cpp" />
 		<Unit filename="src/Cube.cpp" />
 		<Unit filename="src/Cube2.cpp" />
+		<Unit filename="src/CubeBuilderGame.cpp" />
 		<Unit filename="src/DesertSlab.cpp" />
+		<Unit filename="src/GameController.cpp" />
 		<Unit filename="src/GameResources.cpp" />
 		<Unit filename="src/GrassSlab.cpp" />
 		<Unit filename="src/GrassSlabView1.cpp" />
+		<Unit filename="src/Hand.cpp" />
 		<Unit filename="src/Mesh.cpp" />
 		<Unit filename="src/Model.cpp" />
 		<Unit filename="src/Shader.cpp" />
@@ -117,7 +119,6 @@
 		<Unit filename="src/Sun.cpp" />
 		<Unit filename="src/SunView.cpp" />
 		<Unit filename="src/SunViewBasic.cpp" />
-		<Unit filename="src/TempSlabView.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Unit filename="src/Texture2D.cpp" />
 		<Unit filename="src/Tile.cpp" />
@@ -126,6 +127,7 @@
 		<Unit filename="src/WoodlandSlab.cpp" />
 		<Unit filename="src/WoodlandSlabView1.cpp" />
 		<Unit filename="src/WorldMap.cpp" />
+		<Unit filename="src/WorldMapGenerator.cpp" />
 		<Unit filename="src/glad.c">
 			<Option compilerVar="CC" />
 		</Unit>
