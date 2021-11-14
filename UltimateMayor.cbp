@@ -46,6 +46,8 @@
 		</Linker>
 		<Unit filename="include/Camera.h" />
 		<Unit filename="include/CitySlabDecorator.h" />
+		<Unit filename="include/Controller.h" />
+		<Unit filename="include/CrossHairs.h" />
 		<Unit filename="include/Cube.h" />
 		<Unit filename="include/Cube2.h" />
 		<Unit filename="include/DesertSlab.h" />
@@ -96,6 +98,8 @@
 		</Unit>
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/CitySlabDecorator.cpp" />
+		<Unit filename="src/Controller.cpp" />
+		<Unit filename="src/CrossHairs.cpp" />
 		<Unit filename="src/Cube.cpp" />
 		<Unit filename="src/Cube2.cpp" />
 		<Unit filename="src/DesertSlab.cpp" />
