@@ -26,7 +26,6 @@
 #include "Slab.h"
 #include "GrassSlab.h"
 #include "WorldMap.h"
-#include "CitySlabDecorator.h"
 #include "WaterSlab.h"
 #include "DesertSlab.h"
 #include "Camera.h"
@@ -88,7 +87,7 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     //  Initialize cube game
-    cubegame = new CubeBuilderGame;
+    cubegame = new CubeBuilderGame(game::BASIC_MEDIUM);
 
 
     //  Disable mouse
