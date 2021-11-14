@@ -1,5 +1,5 @@
 /**********************************************************
-** Project: Ultimate Mayor
+** Project: Cube Builder Game
 ** File: GrassSlab.h
 ** Author: Luke Leontowich
 ** Date: September 10, 2021

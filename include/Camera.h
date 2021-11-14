@@ -1,9 +1,9 @@
 /**********************************************
-** Project: Ultimate Mayor
+** Project: Cube Builder Game
 ** File: Camera.h
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
-** Description: Define the camera in a struct
+** Description: Define the camera class
 **********************************************/
 
 #ifndef CAMERA_H

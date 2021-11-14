@@ -13,7 +13,10 @@
 
 class CrossHairs {
 private:
+    //  Shader needed to draw crosshairs
     game::Shader shader;
+
+    //  vertex information
     float vertices[8] ={
         -0.05f, 0.0f,
         0.05f, 0.0f,
@@ -21,10 +24,26 @@ private:
         0.0f, 0.05f
     };
     unsigned vao, vbo;
+
 public:
+    /**  Constructor  **/
     CrossHairs();
-    virtual ~CrossHairs();
+
+    /**  Destructor  **/
+    ~CrossHairs();
+
+    /** draw()
+    ** @param none
+    ** @return none
+    ** Description: Draws the crosshairs
+    **/
     void draw();
+
+    /** destroy()
+    ** @param none
+    ** @return none
+    ** Description: Deallocates memory from vertex arrays and buffers
+    **/
     void destroy();
 };
 

@@ -1,5 +1,5 @@
 /*********************************************************
-** Project: CubeBuilderGame
+** Project: Cube Builder Game
 ** File: GameResources.h
 ** Author: Luke Leontowich
 ** Date: September 10, 2021

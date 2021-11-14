@@ -55,7 +55,7 @@ public:
     float theta() {return _theta;}
 
     /** setTheta()
-    ** @param const float&
+    ** @param const float& angle
     ** @return void
     ** Description: Set the angle of the sun
     **/
@@ -63,7 +63,7 @@ public:
 
     /** getPos()
     ** @param none
-    ** @return glm::vec3
+    ** @return glm::vec3 position of sun
     ** Description: Returns the position of the sun
     **/
     glm::vec3 getPos() {return pos;}

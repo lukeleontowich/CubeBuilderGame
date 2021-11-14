@@ -75,14 +75,14 @@ public:
     ~CubeBuilderGame();
 
     /**  update()
-    ** @param const float&
+    ** @param const float&, delta time
     ** @return void
     ** Description: Updates game resources based on delta_time
     **/
     void update(const float& delta_time);
 
     /** input()
-    ** @param GLFWWindow*
+    ** @param Window
     ** @return void
     ** Description: updates game based on player input. The controller of the game
     **/

@@ -33,7 +33,7 @@ private:
 
 
     /** movement()
-    ** @param GLFWwindow*, CubeBuilderGame*
+    ** @param GLFWwindow*, CubeBuilderGame*, References to window and the cube game
     ** @return void
     ** Description: Player's input from keyboard for movement
     **/
@@ -47,28 +47,28 @@ private:
     void pause(GLFWwindow* window);
 
     /** addCube()
-    ** @param GLFWwindow*, CubeBuilderGame*
+    ** @param GLFWwindow*, CubeBuilderGame*,  References to window and the cube game
     ** @return void
     ** Description: Checks player input for add Cube condition
     **/
     void addCube(GLFWwindow* window, CubeBuilderGame* cubegame);
 
     /** removeCube()
-    ** @param GLFWwindow*, CubeBuilderGame*
+    ** @param GLFWwindow*, CubeBuilderGame*,  References to window and the cube game
     ** @return void
     ** Description: Checks player input for a remove cube condition
     **/
     void removeCube(GLFWwindow* window, CubeBuilderGame* cubegame);
 
     /** hideBlockInHand()
-    ** @param GLFWwindow*, CubeBuilderGame*
+    ** @param GLFWwindow*, CubeBuilderGame*,  References to window and the cube game
     ** @return void
     ** Description: Checks player input to see if block in hand should be hidden/ unhidden
     **/
     void hideBlockInHand(GLFWwindow* window, CubeBuilderGame* cubegame);
 
     /** textureInHand()
-    ** @param GLFWwindow*, CubeBuilderGame
+    ** @param GLFWwindow*, CubeBuilderGame, References to window and the cube game
     ** @return void
     ** Description: Checks player input to see if texture in hand needs to change
     **/
@@ -82,7 +82,7 @@ public:
     ~GameController();
 
     /** input()
-    ** @param GLFWwindow*, CubeBuidlerGame*
+    ** @param GLFWwindow*, CubeBuidlerGame*, References to window and the cube game
     ** @return void
     ** Description: Oraganizes and calls the private functions declared above
     **/

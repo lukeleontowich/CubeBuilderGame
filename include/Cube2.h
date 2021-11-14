@@ -1,10 +1,10 @@
 /*****************************************************
-** Project: Ultimate Mayor
+** Project: Cube Builder Game
 ** File: Cube2.h
 ** Author: Luke Leontowich
 ** Date: September 10, 2021
-** Description: This class should be discontinued and
-** deleted from the project
+** Description: This class contains the geometric
+** information to draw a cube without normals
 ****************************************************/
 
 #ifndef CUBE2_H

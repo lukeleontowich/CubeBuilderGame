@@ -32,15 +32,15 @@ private:
     unsigned int _id;
 
     /** getCode()
-    ** @param string path
-    ** @return string
+    ** @param string: file path to shader code
+    ** @return string: code in form of string
     ** Description: Gets the shader code from a file
     **/
     std::string getCode(std::string path);
 
     /** compiled()
-    ** @param unsigned int, const char*
-    ** @return bool
+    ** @param unsigned int, const char*: shader and error msg if error
+    ** @return bool: true on successful compilation
     ** Description: Checks compile status, returns true if compilation was success
     **/
     bool compiled(unsigned int shader, const char* msg);
@@ -55,7 +55,7 @@ public:
     /**
     ** id()
     ** @param none
-    ** @return unsigned int
+    ** @return unsigned int: shader id
     ** Description: returns the shader id
     **/
     unsigned int id() {return _id;}

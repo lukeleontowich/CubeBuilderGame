@@ -28,6 +28,14 @@ public:
     **/
     virtual void draw(int world_map_x, int world_map_z, Slab* slab) = 0;
 
+    /** drawScenery()
+    ** @param int, int, Slab*
+    ** @return none
+    ** Description: Draws the 3D objects (aside from the cubes). Implemented
+    ** in concrete classes
+    **/
+    virtual void drawScenery(int world_map_x, int world_map_z, Slab* slab) = 0;
+
     /** drawTiles()
     ** @param int, int, Slab*
     ** @return void

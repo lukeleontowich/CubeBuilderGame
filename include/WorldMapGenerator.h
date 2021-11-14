@@ -1,6 +1,6 @@
 /*********************************************************
-** Project: CubeBuilderGame
-** File: WorldMapGenerator
+** Project: Cube Builder Game
+** File: WorldMapGenerator.h
 ** Author: Luke Leontowich
 ** Date: November 12, 2021
 ** Description: Generates predefined world maps
