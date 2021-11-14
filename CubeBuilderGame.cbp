@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CubeBuilderGame" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="shaders/" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/UltimateMayor" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add library="gtest" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/UltimateMayor" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Linker>
+			<Add library="glfw" />
+			<Add library="dl" />
+			<Add library="gtest" />
+			<Add library="../../../../../../../usr/lib/x86_64-linux-gnu/libassimp.so.5" />
+		</Linker>
+		<Unit filename="include/Camera.h" />
+		<Unit filename="include/CrossHairs.h" />
+		<Unit filename="include/Cube.h" />
+		<Unit filename="include/Cube2.h" />
+		<Unit filename="include/CubeBuilderGame.h" />
+		<Unit filename="include/DesertSlab.h" />
+		<Unit filename="include/GameController.h" />
+		<Unit filename="include/GameResources.h" />
+		<Unit filename="include/GrassSlab.h" />
+		<Unit filename="include/GrassSlabView1.h" />
+		<Unit filename="include/Hand.h" />
+		<Unit filename="include/Mesh.h" />
+		<Unit filename="include/Model.h" />
+		<Unit filename="include/Shader.h" />
+		<Unit filename="include/Sky.h" />
+		<Unit filename="include/SkyController.h" />
+		<Unit filename="include/Slab.h" />
+		<Unit filename="include/SlabView.h" />
+		<Unit filename="include/SlabViewBase1.h" />
+		<Unit filename="include/Sun.h" />
+		<Unit filename="include/SunView.h" />
+		<Unit filename="include/SunViewBasic.h" />
+		<Unit filename="include/Texture.h" />
+		<Unit filename="include/Texture2D.h" />
+		<Unit filename="include/Tile.h" />
+		<Unit filename="include/Tile2.h" />
+		<Unit filename="include/WaterSlab.h" />
+		<Unit filename="include/WoodlandSlab.h" />
+		<Unit filename="include/WoodlandSlabView1.h" />
+		<Unit filename="include/WorldMap.h" />
+		<Unit filename="include/WorldMapGenerator.h" />
+		<Unit filename="include/stb_image.h" />
+		<Unit filename="main.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="shaders/cube.fs" />
+		<Unit filename="shaders/cube.vs" />
+		<Unit filename="shaders/line.fs" />
+		<Unit filename="shaders/line.vs" />
+		<Unit filename="shaders/mouse_ptr.fs" />
+		<Unit filename="shaders/mouse_ptr.gs" />
+		<Unit filename="shaders/mouse_ptr.vs" />
+		<Unit filename="shaders/object.fs" />
+		<Unit filename="shaders/object.vs" />
+		<Unit filename="shaders/s1.fs" />
+		<Unit filename="shaders/s1.vs" />
+		<Unit filename="shaders/sky.fs" />
+		<Unit filename="shaders/sky.vs" />
+		<Unit filename="shaders/tile.fs" />
+		<Unit filename="shaders/tile.vs" />
+		<Unit filename="sky.fs">
+			<Option virtualFolder="shaders/" />
+		</Unit>
+		<Unit filename="src/Camera.cpp" />
+		<Unit filename="src/CrossHairs.cpp" />
+		<Unit filename="src/Cube.cpp" />
+		<Unit filename="src/Cube2.cpp" />
+		<Unit filename="src/CubeBuilderGame.cpp" />
+		<Unit filename="src/DesertSlab.cpp" />
+		<Unit filename="src/GameController.cpp" />
+		<Unit filename="src/GameResources.cpp" />
+		<Unit filename="src/GrassSlab.cpp" />
+		<Unit filename="src/GrassSlabView1.cpp" />
+		<Unit filename="src/Hand.cpp" />
+		<Unit filename="src/Mesh.cpp" />
+		<Unit filename="src/Model.cpp" />
+		<Unit filename="src/Shader.cpp" />
+		<Unit filename="src/Sky.cpp" />
+		<Unit filename="src/SkyController.cpp" />
+		<Unit filename="src/Slab.cpp" />
+		<Unit filename="src/SlabView.cpp" />
+		<Unit filename="src/SlabViewBase1.cpp" />
+		<Unit filename="src/Sun.cpp" />
+		<Unit filename="src/SunView.cpp" />
+		<Unit filename="src/SunViewBasic.cpp" />
+		<Unit filename="src/Texture.cpp" />
+		<Unit filename="src/Texture2D.cpp" />
+		<Unit filename="src/Tile.cpp" />
+		<Unit filename="src/Tile2.cpp" />
+		<Unit filename="src/WaterSlab.cpp" />
+		<Unit filename="src/WoodlandSlab.cpp" />
+		<Unit filename="src/WoodlandSlabView1.cpp" />
+		<Unit filename="src/WorldMap.cpp" />
+		<Unit filename="src/WorldMapGenerator.cpp" />
+		<Unit filename="src/glad.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/stb_image.cpp" />
+		<Unit filename="test.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
