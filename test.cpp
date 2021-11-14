@@ -13,10 +13,9 @@
 #include "Slab.h"
 #include "GrassSlab.h"
 #include "WorldMap.h"
-#include "CitySlabDecorator.h"
 #include "WaterSlab.h"
 #include "DesertSlab.h"
-#include "Object.h"
+
 #include "Camera.h"
 #include "Model.h"
 #include "Sun.h"
@@ -24,6 +23,7 @@
 #include "SunViewBasic.h"
 #include "SkyController.h"
 #include "WoodlandSlab.h"
+#include "CubeBuilderGame.h"
 
 
 /**  TESTING SLABS **/
@@ -380,105 +380,6 @@ TEST(testWoodlandSlab, testConstructor) {
     delete slab;
 }
 
-/**  TESTING CITY WRAPPER  **/
-TEST(testCitySlabDecorator, testConstructor) {
-    Slab* slab = new CitySlabDecorator(new GrassSlab);
-
-    auto map_ref = slab->getLocalSlabMap();
-
-    //  Test for road tiles
-    EXPECT_EQ(game::ROAD, map_ref[0]);
-
-    //  Test that collision map is set to zero
-    for (unsigned i = 0; i < SLAB_SIZE; ++i) {
-        for (unsigned j = 0; j < SLAB_MAX_HEIGHT; ++j) {
-            for (unsigned k = 0; k < SLAB_SIZE; ++k) {
-                EXPECT_FALSE(slab->collision(i, j, k));
-            }
-        }
-    }
-
-    //  Check collision map edges
-    EXPECT_FALSE(slab->collision(-1, 0, 0));
-    EXPECT_FALSE(slab->collision(0, 0, -1));
-    EXPECT_FALSE(slab->collision(SLAB_SIZE, 0, 0));
-    EXPECT_FALSE(slab->collision(0, 0, SLAB_SIZE));
-
-    EXPECT_TRUE(slab->collision(0, -1, 0));
-    EXPECT_TRUE(slab->collision(0, SLAB_MAX_HEIGHT, 0));
-
-    //  Check height
-    EXPECT_EQ(2, slab->height());
-
-    delete slab;
-}
-TEST(testCitySlabDecorator, testAddingElement) {
-    Slab* slab = new CitySlabDecorator(new WaterSlab);
-
-    auto map_ref = slab->getCubeMapRef();
-
-
-    EXPECT_EQ(ADD_SUCCESS, slab->addElement(game::BRICK, glm::vec3(1.0, 1.0, 1.0)));
-    EXPECT_EQ(1, map_ref->size());
-    EXPECT_EQ(game::BRICK, map_ref->at(0).type);
-    EXPECT_TRUE(slab->collision(1, 1, 1));
-
-
-    EXPECT_EQ(ADD_SUCCESS, slab->addElement(game::ROAD, glm::vec3(2.3, 4.5, 6.63)));
-    EXPECT_EQ(2, map_ref->size());
-    EXPECT_EQ(game::ROAD, map_ref->at(1).type);
-    EXPECT_TRUE(slab->collision(2, 4, 6));
-
-
-    EXPECT_EQ(POSITION_NOT_VALID, slab->addElement(game::WATER, glm::vec3(-1.0, 0.0, 0.0)));
-    EXPECT_EQ(2, map_ref->size());
-    EXPECT_FALSE(slab->collision(-1, 0, 0));
-
-    EXPECT_EQ(POSITION_NOT_VALID, slab->addElement(game::WATER, glm::vec3(SLAB_SIZE, 0.0, 0.0)));
-    EXPECT_EQ(POSITION_NOT_VALID, slab->addElement(game::WATER, glm::vec3(0, -1, 0)));
-    EXPECT_EQ(POSITION_NOT_VALID, slab->addElement(game::WATER, glm::vec3(0, SLAB_MAX_HEIGHT, 0)));
-    EXPECT_EQ(POSITION_NOT_VALID, slab->addElement(game::WATER, glm::vec3(0, 0, -1)));
-    EXPECT_EQ(POSITION_NOT_VALID, slab->addElement(game::WATER, glm::vec3(0, 0, SLAB_SIZE)));
-
-    EXPECT_EQ(POSITION_ALREADY_TAKEN, slab->addElement(game::ROAD, glm::vec3(1.0, 1.0, 1.0)));
-
-
-    delete slab;
-}
-TEST(testCitySlabDecorator, testCheckPosIsValid) {
-    Slab* slab = new CitySlabDecorator(new DesertSlab);
-
-    EXPECT_TRUE(slab->checkPosIsValid(glm::vec3(0.0, 0.0, 0.0)));
-    EXPECT_TRUE(slab->checkPosIsValid(glm::vec3(SLAB_SIZE-1, 0.0, 0.0)));
-    EXPECT_TRUE(slab->checkPosIsValid(glm::vec3(0.0, SLAB_MAX_HEIGHT-1, 0.0)));
-    EXPECT_TRUE(slab->checkPosIsValid(glm::vec3(0.0, 0.0, SLAB_SIZE-1)));
-
-    EXPECT_FALSE(slab->checkPosIsValid(glm::vec3(-1.0, 0.0, 0.0)));
-    EXPECT_FALSE(slab->checkPosIsValid(glm::vec3(0.0, -1.0, 0.0)));
-    EXPECT_FALSE(slab->checkPosIsValid(glm::vec3(0.0, 0.0, -1.0)));
-    EXPECT_FALSE(slab->checkPosIsValid(glm::vec3(SLAB_SIZE, 0.0, 0.0)));
-    EXPECT_FALSE(slab->checkPosIsValid(glm::vec3(0.0, SLAB_MAX_HEIGHT, 0.0)));
-    EXPECT_FALSE(slab->checkPosIsValid(glm::vec3(0.0, 0.0, SLAB_SIZE)));
-
-    delete slab;
-}
-
-TEST(testCitySlab, testRemoveElement) {
-    Slab* slab = new CitySlabDecorator(new DesertSlab);
-
-    EXPECT_EQ(ADD_SUCCESS, slab->addElement(game::BRICK, glm::vec3(2.6, 4.3, 1.7)));
-    EXPECT_EQ(ADD_SUCCESS, slab->addElement(game::GRASS, glm::vec3(1.0, 2.9, 5.3)));
-
-    EXPECT_EQ(REMOVE_SUCCESS, slab->removeElement(glm::vec3(2.0, 4.0, 1.0)));
-
-    EXPECT_EQ(POSITION_NOT_VALID, slab->removeElement(glm::vec3(-1.0, 3.0, 3.0)));
-
-    EXPECT_EQ(POSITION_EMPTY, slab->removeElement(glm::vec3(0.0, 0.0, 0.0)));
-    EXPECT_EQ(POSITION_EMPTY, slab->removeElement(glm::vec3(2.0, 4.0, 1.0)));
-
-    delete slab;
-}
-
 
 /**  TESTING WORLD MAP  **/
 TEST(testWorldMap, testConstructor) {
@@ -604,9 +505,9 @@ TEST(testWorldMap, testMapIsFull) {
 TEST(testWorldMap, testFillingMapWithDifferentSlabs) {
     //  Game Map
     WorldMap game_map(3);
-    game_map.addSlab(new CitySlabDecorator(new GrassSlab));
-    game_map.addSlab(new CitySlabDecorator(new DesertSlab));
-    game_map.addSlab(new CitySlabDecorator(new GrassSlab));
+    game_map.addSlab(new WoodlandSlab);
+    game_map.addSlab(new WoodlandSlab);
+    game_map.addSlab(new WoodlandSlab);
     game_map.addSlab(new GrassSlab);
     game_map.addSlab(new GrassSlab);
     game_map.addSlab(new WaterSlab);
@@ -694,10 +595,10 @@ TEST(testWorldMap, test2) {
 
     game_map->addSlab(new GrassSlab);
     game_map->addSlab(temp_slab2);
-    game_map->addSlab(new CitySlabDecorator(new GrassSlab));
     game_map->addSlab(new GrassSlab);
     game_map->addSlab(new GrassSlab);
-    game_map->addSlab(new CitySlabDecorator(new GrassSlab));
+    game_map->addSlab(new GrassSlab);
+    game_map->addSlab(new GrassSlab);
     game_map->addSlab(new GrassSlab);
 
 
@@ -705,8 +606,8 @@ TEST(testWorldMap, test2) {
     game_map->addSlab(new DesertSlab);
     game_map->addSlab(new DesertSlab);
     game_map->addSlab(new WaterSlab);
-    game_map->addSlab(new CitySlabDecorator(new DesertSlab));
-    game_map->addSlab(new CitySlabDecorator(new DesertSlab));
+    game_map->addSlab(new DesertSlab);
+    game_map->addSlab(new DesertSlab);
     game_map->addSlab(new DesertSlab);
 
 
@@ -714,8 +615,8 @@ TEST(testWorldMap, test2) {
     game_map->addSlab(new DesertSlab);
     game_map->addSlab(new DesertSlab);
     game_map->addSlab(new WaterSlab);
-    game_map->addSlab(new CitySlabDecorator(new DesertSlab));
-    game_map->addSlab(new CitySlabDecorator(new DesertSlab));
+    game_map->addSlab(new DesertSlab);
+    game_map->addSlab(new DesertSlab);
     game_map->addSlab(new DesertSlab);
 
 
@@ -752,10 +653,11 @@ TEST(testWorldMap, test2) {
 
 TEST(testWorldMap, testGetMousePointerLocation) {
     Camera camera;
-    camera.pos = glm::vec3(1.0, 5.0, 1.0);
+    camera.setPos(glm::vec3(1.0, 5.0, 1.0));
 
-    camera.pitch = 1.0f;
-    camera.yaw = 45.0f;
+    camera.setPitch(1.0f);
+    camera.setYaw(45.0f);
+
 
     WorldMap game_map(1);
 
@@ -816,29 +718,6 @@ TEST(testSun, testConstructor) {
     EXPECT_TRUE(sun.theta() - 40.0f < 0.0000001);
 }
 
-TEST(testSky, SkyConstructor) {
-
-
-}
-
-/**  TEST OBJECT  **/
-/*
-TEST(testObject, testConstructor) {
-    Object tree("objects/tree.obj");
-
-    EXPECT_TRUE(tree.init());
-
-}
-
-*/
-/** TEST CUBE **/
-TEST(testCube, testConstructor) {
-    //glfwInit();
-
-    //game::Model m1("objects/tree1/tree1.obj");
-
-    //glfwTerminate();
-}
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
